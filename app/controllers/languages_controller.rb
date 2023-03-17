@@ -20,4 +20,9 @@ class LanguagesController < ApplicationController
     @search_query = params[:designed_by]
     @languages = Language.where("designed_by ILIKE ?", "%#{@search_query}%")
   end
+
+  def search_by_type
+    @search_query = params[:type]
+    @languages = Language.where("type ILIKE ?", "%#{@search_query}%")
+  end
 end
