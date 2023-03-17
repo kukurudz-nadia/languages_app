@@ -1,0 +1,10 @@
+<% if @languages.any? %>
+  <h2>Search results for <%= @search_query %>:</h2>
+  <ul>
+    <% @languages.each do |language| %>
+      <li><%= language.name %> - <%= language.type %> - <%= language.designed_by %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No languages found for <%= @search_query %>.</p>
+<% end %>
