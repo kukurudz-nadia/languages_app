@@ -1,0 +1,16 @@
+<%= form_tag({ action: "search_by_name" }, method: "get", id: "search-form") do %>
+  <%= label_tag(:name, "Search for language by name:") %>
+  <%= text_field_tag(:name) %>
+  <%= submit_tag("Search", id: "search-btn") %>
+<% end %>
+
+<% if @languages.any? %>
+  <h2>Search results for <%= @search_query %>:</h2>
+  <ul>
+    <% @languages.each do |language| %>
+      <li><%= language.name %> - <%= language.type %> - <%= language.designed_by %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No languages found for <%= @search_query %>.</p>
+<% end %>

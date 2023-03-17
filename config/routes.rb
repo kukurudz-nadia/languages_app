@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :languages, only: [:index, :show]
+  get "/search", to: "languages#search_by_name", as: "search_by_name"
+  root "homes#index"
 end
