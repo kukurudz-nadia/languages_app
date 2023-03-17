@@ -1,0 +1,6 @@
+<%= form_tag({ action: "search_by_type_or_designer" }, method: "get") do %>
+  <%= label_tag(:type, "Search for language by type:") %>
+  <%= text_field_tag(:type) %>
+  <%= submit_tag("Search") %>
+<% end %>
+<%= render partial: "show_languages" %>

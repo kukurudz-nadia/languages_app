@@ -21,7 +21,7 @@ class LanguagesController < ApplicationController
     @languages = Language.where("designed_by ILIKE ?", "%#{@search_query}%")
   end
 
-  def search_by_type
+  def search_by_type_or_designer
     @search_query = params[:type]
     params_array = @search_query.split(" ")
     type, designed_by = [], []
@@ -32,6 +32,14 @@ class LanguagesController < ApplicationController
         designed_by << param
       end
     end
-    @languages = Language.where("type ILIKE ? AND designed_by ILIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%")
+    negative_element = params_array.find { |elem| elem.match(/^-.+/) }
+    byebug
+    changed_neg_el = negative_element.gsub(/-/, "")
+    if Language.where("type ILIKE ?", "%#{changed_neg_el}%").any?
+      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND type NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
+    elsif Language.where("designed_by ILIKE ?", "%#{changed_neg_el}%").any?
+      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND designed_by NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
+    end
+      byebug
   end
 end
