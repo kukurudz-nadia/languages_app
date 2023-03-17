@@ -41,6 +41,5 @@ class LanguagesController < ApplicationController
       @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND designed_by NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
     end
       byebug
-
   end
 end
