@@ -23,6 +23,15 @@ class LanguagesController < ApplicationController
 
   def search_by_type
     @search_query = params[:type]
-    @languages = Language.where("type ILIKE ?", "%#{@search_query}%")
+    params_array = @search_query.split(" ")
+    type, designed_by = [], []
+    params_array.each do |param|
+      if Language.where("type ILIKE ?", param).any?
+        type << param
+      elsif Language.where("designed_by ILIKE ?", param).any?
+        designed_by << param
+      end
+    end
+    @languages = Language.where("type ILIKE ? AND designed_by ILIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%")
   end
 end

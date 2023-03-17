@@ -1,5 +1,5 @@
 <%= form_tag({ action: "search_by_designer" }, method: "get") do %>
-  <%= label_tag(:name, "Search for language by designer:") %>
+  <%= label_tag(:designed_by, "Search for language by designer:") %>
   <%= text_field_tag(:designed_by) %>
   <%= submit_tag("Search") %>
 <% end %>
