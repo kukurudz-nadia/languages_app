@@ -9,7 +9,6 @@ class LanguagesController < ApplicationController
   def search_by_name
     @search_query = params[:name]
     @languages = Language.where("name ILIKE ?", @search_query)
-
     language = @languages.first
     if language.nil? && !@search_query.nil?
       reversed_name = @search_query.split(" ").reverse.join(" ")
@@ -24,6 +23,8 @@ class LanguagesController < ApplicationController
 
   def search_by_type_or_designer
     @search_query = params[:type]
+    @languages = Language.where("type ILIKE ?", @search_query) if @search_query.nil?
+    unless @search_query.nil?
     params_array = @search_query.split(" ")
     type, designed_by = match_param(params_array)
 
@@ -33,6 +34,7 @@ class LanguagesController < ApplicationController
     else
       negative_search(negative_element, type, designed_by)
     end
+  end
   end
 
   def match_param(params_array)
@@ -48,12 +50,11 @@ class LanguagesController < ApplicationController
   end
 
   def negative_search(negative_element, type, designed_by)
-    negative_element = params_array.find { |elem| elem.match(/^-.+/) }
     changed_neg_el = negative_element.gsub(/-/, "")
     if Language.where("type ILIKE ?", "%#{changed_neg_el}%").any?
-      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND type NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
+      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND type NOT ILIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
     elsif Language.where("designed_by ILIKE ?", "%#{changed_neg_el}%").any?
-      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND designed_by NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
+      @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND designed_by NOT ILIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
     end
   end
 end
