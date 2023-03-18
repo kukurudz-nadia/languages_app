@@ -1,4 +1,4 @@
-Test task for Teamvoy
+Languages searcher
 
 Versions:
 - ruby: 3.0.3
