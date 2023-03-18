@@ -1,8 +1,12 @@
-<div class="container-fluid bg-info text-light p-5">
-    <div class="container bg-dark p-5  text-center">
+
+<div class="container-fluid bg-info text-light p-5 ">
+    <div class="container bg-dark p-5 text-center rounded">
         <h1 class="display-6">Welcome to Search Engine of Programming Languages</h1>
         <hr>
         <p class="text-info p-3 fs-4">You can search any language by name, designer, type, combunation of type and designer. Also you can use negative searches!</p>
-        <%= image_tag("home.jpg", class:"img-fluid")%>
+        <div style="position: relative;">
+            <%= image_tag("home.jpg", class:"img-fluid rounded")%>
+            <%= button_to "Show languages", languages_path, method: :get, class:"btn btn-info", style:"position: absolute; top: 20%; left: 80%; transform: translate(-50%, -50%);" %>
+        </div>
     </div>
 </div>
