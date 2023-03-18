@@ -9,7 +9,6 @@ class LanguagesController < ApplicationController
   def search_by_name
     @search_query = params[:name]
     @languages = Language.where("name ILIKE ?", @search_query)
-
     language = @languages.first
     if language.nil? && !@search_query.nil?
       reversed_name = @search_query.split(" ").reverse.join(" ")
@@ -37,6 +36,7 @@ class LanguagesController < ApplicationController
         negative_search(negative_element, type, designed_by)
       end
     end
+  end
   end
 
   def match_param(params_array)
