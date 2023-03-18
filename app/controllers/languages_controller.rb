@@ -16,11 +16,6 @@ class LanguagesController < ApplicationController
     end
   end
 
-  def search_by_designer
-    @search_query = params[:designed_by]
-    @languages = Language.where("designed_by ILIKE ?", "%#{@search_query}%")
-  end
-
   def search_by_type_or_designer
     @search_query = params[:type]
     if @search_query.nil?
