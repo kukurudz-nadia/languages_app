@@ -37,7 +37,6 @@ class LanguagesController < ApplicationController
       end
     end
   end
-  end
 
   def match_param(params_array)
     type, designed_by = [], []
