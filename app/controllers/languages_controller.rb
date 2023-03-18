@@ -48,6 +48,7 @@ class LanguagesController < ApplicationController
   end
 
   def negative_search(negative_element, type, designed_by)
+    negative_element = params_array.find { |elem| elem.match(/^-.+/) }
     changed_neg_el = negative_element.gsub(/-/, "")
     if Language.where("type ILIKE ?", "%#{changed_neg_el}%").any?
       @languages = Language.where("type ILIKE ? AND designed_by ILIKE ? AND type NOT LIKE ?", "%#{type.join(" ")}%", "%#{designed_by.join(" ")}%", "%#{changed_neg_el}%")
