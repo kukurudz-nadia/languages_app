@@ -1,12 +1,24 @@
 <% if @languages.any? %>
-  <h2>Search results for <%= @search_query %>:</h2>
-  <div>
-    <% @languages.each do |language| %>
-      <p>Name: <%= language.name %></p>
-      <p>Type: <%= language.type %></p>
-      <p>Designed by: <%= language.designed_by %></p><br>
-    <% end %>
-  </div>
+  <div class="container ">
+  <% @languages.each do |language| %>
+    <div class="row justify-content-center ">
+      <div class="col-8 mt-4">
+        <div class="card text-center shadow mb-5 bg-body-tertiary border border-info border-2 rounded">
+          <div class="card-header bg-info">
+            <h5><%= language.name %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%= language.type %></p>
+            <p class="card-text text-muted"><%= language.designed_by %></p>
+          </div>
+          <div class="card-footer text-muted">
+            <%= button_to "Show", language_path(language), method: :get, class:"btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 <% else %>
   <p>No languages found for <%= @search_query %>.</p>
 <% end %>
