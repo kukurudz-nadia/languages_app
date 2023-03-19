@@ -2,10 +2,19 @@
   <h2 class="text-center mt-4">Search for language by name:</h2>
   <%= form_tag({ action: "search_by_name" }, method: "get") do %>
     <div class="form-group-row">
-      <%= text_field_tag(:name, nil, class: "col-6 mt-4 mb-2 border border-info border-2 shadow p-2 rounded") %>
-      <%= submit_tag("Search", class:"btn btn-info col-1") %>
+      <%= text_field_tag(:name, nil, class: "col-6 mt-4 mb-2 border border-info border-2 shadow p-2 rounded", id:"name") %>
+      <%= submit_tag("Search", class:"btn btn-info col-1", onclick: "checkInput()") %>
     </div>
   <% end %>
   <h5>Results for <%= @search_query %>:</h5>
   <%= render partial: "show_languages" %>
 </div>
+<script>
+  function checkInput() {
+    const inputField = document.getElementById("name");
+    if (inputField.value.trim() == "") {
+      alert("Please enter a name to search.");
+      return false;
+    }
+  }
+</script>

@@ -2,10 +2,19 @@
   <h2 >Search for language by type or designer:</h2>
   <%= form_tag({ action: "search_by_type_or_designer" }, method: "get") do %>
     <div class="form-group-row">
-      <%= text_field_tag(:type, nil, class: "col-6 mt-4 mb-2 border border-info border-2 shadow p-2 rounded") %>
-      <%= submit_tag("Search", class:"btn btn-info col-1")%>
+      <%= text_field_tag(:type, nil, class: "col-6 mt-4 mb-2 border border-info border-2 shadow p-2 rounded", id:"type") %>
+      <%= submit_tag("Search", class:"btn btn-info col-1", onclick: "checkInput()")%>
     </div>
   <% end %>
   <h5>Results for <%= @search_query %>:</h5>
   <%= render partial: "show_languages" %>
 </div>
+<script>
+  function checkInput() {
+    const inputField = document.getElementById("type");
+    if (inputField.value.trim() == "") {
+      alert("Please enter data to search.");
+      return false;
+    }
+  }
+</script>
