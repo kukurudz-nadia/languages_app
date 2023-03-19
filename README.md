@@ -1,4 +1,4 @@
-Languages searcher
+Search Engine of Programming Languages
 
 Versions:
 - ruby: 3.0.3
